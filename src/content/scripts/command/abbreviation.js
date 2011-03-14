@@ -204,6 +204,14 @@ $self.controller = function() {
 
 		var snippet = null;
 
+		// @@@ chemiX - remove "." from first place
+		// ko.dialogs.alert(view + ' - ' + abbreviation + ' - ' + provider );
+		if ( abbreviation.substring(0,1) == '.'){
+			abbreviation = abbreviation.substr(1);
+		}
+		// /@@@ chemiX
+
+
 		// If no provider is given, attempt to find a snippet in any of the registered ones
 		if (typeof (provider) === 'undefined') {
 
@@ -370,6 +378,13 @@ $self.controller = function() {
 						while (rangeStart >= 0) {
 
 							rangeText = scimoz.getTextRange(rangeStart, rangeEnd);
+
+							// @@@ chemiX -  "classname.test.ABBR" -> run now ABBR only (not classname.test.ABBR)
+								if (rangeText.substring(0,1) == '.'){
+									break;
+								}
+							// /@@@ chemiX
+
 							if (provider.getAllowedRegExp(index).test(rangeText)) {
 
 								abbreviation = rangeText;
